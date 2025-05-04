@@ -451,41 +451,37 @@
         <div class="loader" id="loader"></div>
         <div id="error"></div>
                 <footer>
-            <a href="https://whatsapp.com/channel/0029ValH0yv6GcG8pM6AN432" target="_blank" class="whatsapp-button">Join our WhatsApp Channel</a>
+            <a href="https://wa.me/+923319198321" target="_blank" class="whatsapp-button">Join our WhatsApp Channel</a>
             <div class="copyright">© 2025 CyberGuru Innovations. All Rights Reserved.</div>
         </footer>
     </div>
 
   <script>
-  function downloadVideo() {
-    const url = document.getElementById("videoURL").value;
-    
-    if (!url) {
-      alert("Please enter a video URL.");
-      return;
-    }
+    async function downloadVideo() {
+      const url = document.getElementById("videoUrl").value;
+      const api = `https://tikwm.com/api/?url=${encodeURIComponent(url)}`;
 
-    fetch("https://your-api-or-server.com/download", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ videoURL: url })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Yahan response handle karein (download link show karwana, etc.)
-      console.log(data);
-      if (data.downloadUrl) {
-        window.open(data.downloadUrl, "_blank");
-      } else {
-        alert("Download failed.");
+      try {
+        const res = await fetch(api);
+        const data = await res.json();
+
+        if (data.code === 0) {
+          const videoUrl = data.data.play;  // No watermark video
+
+          document.getElementById("preview").src = videoUrl;
+          document.getElementById("preview").style.display = "block";
+
+          const downloadLink = document.getElementById("downloadLink");
+          downloadLink.href = videoUrl;
+          downloadLink.style.display = "inline-block";
+        } else {
+          alert("Invalid or private TikTok video.");
+        }
+      } catch (error) {
+        alert("API error: " + error.message);
       }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      alert("An error occurred while downloading.");
-    });
-  }
-</script>
+    }
+  </script>
 
 
 </body></html>
