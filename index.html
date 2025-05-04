@@ -456,6 +456,49 @@
         </footer>
     </div>
 
-    <script data-savepage-type="" type="text/plain"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const input = document.querySelector("input[type='url']");
+        const error = document.getElementById("error");
+        const loader = document.getElementById("loader");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const videoURL = input.value.trim();
+
+            if (!videoURL || !videoURL.includes("tiktok.com")) {
+                error.textContent = "Valid TikTok URL dijiye.";
+                error.style.display = "block";
+                return;
+            }
+
+            error.style.display = "none";
+            loader.style.display = "block";
+
+            try {
+                const response = await fetch(`https://api.tiklydown.net/api/download?url=${encodeURIComponent(videoURL)}`);
+                const data = await response.json();
+
+                loader.style.display = "none";
+
+                if (data && data.video && data.video.no_watermark) {
+                    const downloadLink = document.createElement("a");
+                    downloadLink.href = data.video.no_watermark;
+                    downloadLink.download = "tiktok-video.mp4";
+                    downloadLink.click();
+                } else {
+                    error.textContent = "Video download link nahi mila.";
+                    error.style.display = "block";
+                }
+            } catch (err) {
+                loader.style.display = "none";
+                error.textContent = "Download mein error aayi.";
+                error.style.display = "block";
+            }
+        });
+    });
+</script>
+
 
 </body></html>
