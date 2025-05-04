@@ -446,7 +446,7 @@
             <div class="input-group">
                 <input type="url" id="videoUrl" name="videoUrl" placeholder="Enter TikTok Video URL" value="" required="">
             </div>
-            <button type="submit">Download Video</button>
+           <button onclick="downloadVideo()">Download Video</button>
         </form>
         <div class="loader" id="loader"></div>
         <div id="error"></div>
@@ -457,47 +457,34 @@
     </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");
-        const input = document.querySelector("input[type='url']");
-        const error = document.getElementById("error");
-        const loader = document.getElementById("loader");
+  function downloadVideo() {
+    const url = document.getElementById("videoURL").value;
+    
+    if (!url) {
+      alert("Please enter a video URL.");
+      return;
+    }
 
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const videoURL = input.value.trim();
-
-            if (!videoURL || !videoURL.includes("tiktok.com")) {
-                error.textContent = "Valid TikTok URL dijiye.";
-                error.style.display = "block";
-                return;
-            }
-
-            error.style.display = "none";
-            loader.style.display = "block";
-
-            try {
-                const response = await fetch(`https://api.tiklydown.net/api/download?url=${encodeURIComponent(videoURL)}`);
-                const data = await response.json();
-
-                loader.style.display = "none";
-
-                if (data && data.video && data.video.no_watermark) {
-                    const downloadLink = document.createElement("a");
-                    downloadLink.href = data.video.no_watermark;
-                    downloadLink.download = "tiktok-video.mp4";
-                    downloadLink.click();
-                } else {
-                    error.textContent = "Video download link nahi mila.";
-                    error.style.display = "block";
-                }
-            } catch (err) {
-                loader.style.display = "none";
-                error.textContent = "Download mein error aayi.";
-                error.style.display = "block";
-            }
-        });
+    fetch("https://your-api-or-server.com/download", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoURL: url })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Yahan response handle karein (download link show karwana, etc.)
+      console.log(data);
+      if (data.downloadUrl) {
+        window.open(data.downloadUrl, "_blank");
+      } else {
+        alert("Download failed.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("An error occurred while downloading.");
     });
+  }
 </script>
 
 
