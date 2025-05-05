@@ -1,5 +1,7 @@
-<!DOCTYPE html><html lang="en"><head>
-<link rel="icon" data-savepage-href="https://shadowtools.site/favicon.ico" href="">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TikTok Video Downloader</title>
@@ -413,75 +415,47 @@
             }
         }
     </style>
-
-<style id="savepage-cssvariables">
-  :root {
-  }
-</style>
-<script id="savepage-shadowloader" type="text/javascript">
-  "use strict";
-  window.addEventListener("DOMContentLoaded",
-  function(event) {
-    savepage_ShadowLoader(5);
-  },false);
-  function savepage_ShadowLoader(c){createShadowDOMs(0,document.documentElement);function createShadowDOMs(a,b){var i;if(b.localName=="iframe"||b.localName=="frame"){if(a<c){try{if(b.contentDocument.documentElement!=null){createShadowDOMs(a+1,b.contentDocument.documentElement)}}catch(e){}}}else{if(b.children.length>=1&&b.children[0].localName=="template"&&b.children[0].hasAttribute("data-savepage-shadowroot")){b.attachShadow({mode:"open"}).appendChild(b.children[0].content);b.removeChild(b.children[0]);for(i=0;i<b.shadowRoot.children.length;i++)if(b.shadowRoot.children[i]!=null)createShadowDOMs(a,b.shadowRoot.children[i])}for(i=0;i<b.children.length;i++)if(b.children[i]!=null)createShadowDOMs(a,b.children[i])}}}
-</script>
-<meta name="savepage-url" content="https://shadowtools.site/tiktokdowloader.php">
-<meta name="savepage-title" content="TikTok Video Downloader">
-<meta name="savepage-pubdate" content="Unknown">
-<meta name="savepage-from" content="https://shadowtools.site/tiktokdowloader.php">
-<meta name="savepage-date" content="Sun May 04 2025 21:47:46 GMT+0500 (Pakistan Standard Time)">
-<meta name="savepage-state" content="Standard Items; Retain cross-origin frames; Merge CSS images; Remove unsaved URLs; Load lazy images in existing content; Max frame depth = 5; Max resource size = 50MB; Max resource time = 10s;">
-<meta name="savepage-version" content="33.9">
-<meta name="savepage-comments" content="">
-  </head>
+</head>
 <body>
     <div class="particles" id="particles"></div>
     <div class="container">
         <header>
-            <div class="developed-by">Developed by Qazi</div>
+            <div class="developed-by">Developed by QAZI </div>
         </header>
         <h1>TikTok Video Downloader</h1>
         <form method="POST" action="">
             <div class="input-group">
-                <input type="url" id="videoUrl" name="videoUrl" placeholder="Enter TikTok Video URL" value="" required="">
+                <input type="url" id="videoUrl" name="videoUrl" placeholder="Enter TikTok Video URL" value="" required>
             </div>
-           <button onclick="downloadVideo()">Download Video</button>
+            <button type="submit">Download Video</button>
         </form>
         <div class="loader" id="loader"></div>
         <div id="error"></div>
                 <footer>
-            <a href="https://wa.me/+923319198321" target="_blank" class="whatsapp-button">Join our WhatsApp Channel</a>
+            <a href="https://whatsapp.com/channel/0029ValH0yv6GcG8pM6AN432" target="_blank" class="whatsapp-button">Join our WhatsApp Channel</a>
             <div class="copyright">© 2025 CyberGuru Innovations. All Rights Reserved.</div>
         </footer>
     </div>
 
-  <script>
-    async function downloadVideo() {
-      const url = document.getElementById("videoUrl").value;
-      const api = `https://tikwm.com/api/?url=${encodeURIComponent(url)}`;
-
-      try {
-        const res = await fetch(api);
-        const data = await res.json();
-
-        if (data.code === 0) {
-          const videoUrl = data.data.play;  // No watermark video
-
-          document.getElementById("preview").src = videoUrl;
-          document.getElementById("preview").style.display = "block";
-
-          const downloadLink = document.getElementById("downloadLink");
-          downloadLink.href = videoUrl;
-          downloadLink.style.display = "inline-block";
-        } else {
-          alert("Invalid or private TikTok video.");
+    <script>
+        // Particle animation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 150; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = `${Math.random() * 5 + 5}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDelay = `${Math.random() * 10}s`;
+            particlesContainer.appendChild(particle);
         }
-      } catch (error) {
-        alert("API error: " + error.message);
-      }
-    }
-  </script>
 
-
-</body></html>
+        // Show loader on form submit
+        document.querySelector('form').addEventListener('submit', () => {
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.querySelector('.video-info')?.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
